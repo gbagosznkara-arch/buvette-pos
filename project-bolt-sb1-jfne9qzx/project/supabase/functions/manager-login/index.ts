@@ -125,7 +125,6 @@ Deno.serve(async (req: Request) => {
     });
 
     if (!signInRes.ok) {
-      const errBody = await signInRes.text();
       return new Response(
         JSON.stringify({ error: "Impossible de se connecter" }),
         { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
@@ -152,7 +151,7 @@ Deno.serve(async (req: Request) => {
       }),
       { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
-  } catch (err) {
+  } catch {
     return new Response(
       JSON.stringify({ error: "Erreur serveur" }),
       { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }

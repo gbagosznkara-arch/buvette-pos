@@ -45,6 +45,7 @@ export default function ProductsScreen() {
   async function save() {
     if (!editing) return;
     if (!editing.name.trim()) { show('err', 'Le nom est obligatoire'); return; }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { buy_price, id, created_at, updated_at, ...rest } = editing;
     if (id) {
       const { error } = await supabase.from('products').update(rest).eq('id', id);
