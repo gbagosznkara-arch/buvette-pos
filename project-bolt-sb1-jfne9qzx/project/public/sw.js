@@ -1,4 +1,4 @@
-const CACHE = 'buvette-v1';
+const CACHE = 'buvette-v2';
 const ASSETS = [
   '/',
   '/index.html',
@@ -32,6 +32,20 @@ self.addEventListener('fetch', (event) => {
   if (url.hostname.includes('supabase')) {
     event.respondWith(
       fetch(req).catch(() => caches.match(req))
+    );
+    return;
+  }
+
+  // Network-first for pages so a new deploy is picked up (hashed assets change)
+  if (req.mode === 'navigate') {
+    event.respondWith(
+      fetch(req).then((res) => {
+        if (res.ok) {
+          const clone = res.clone();
+          caches.open(CACHE).then((cache) => cache.put('/index.html', clone));
+        }
+        return res;
+      }).catch(() => caches.match('/index.html').then((r) => r || caches.match('/')))
     );
     return;
   }
