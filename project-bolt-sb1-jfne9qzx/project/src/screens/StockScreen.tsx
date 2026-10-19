@@ -3,7 +3,6 @@ import { Search, Plus, AlertTriangle, Loader2, Package, ArrowDownUp, X } from 'l
 import { supabase } from '@/lib/supabase';
 import { getDeviceId, genDeviceEntityId } from '@/lib/device';
 import { putStockMovement } from '@/lib/offline-db';
-import { fcfa } from '@/lib/format';
 import { useToast } from '@/context/ToastContext';
 import type { Product, StockMovement } from '@/types/db';
 

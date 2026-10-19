@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import {
   Search, X, Banknote, Smartphone, Wallet,
-  Receipt, Pause, Loader2, ShoppingCart, AlertTriangle,
+  Receipt, Pause, Loader2, ShoppingCart, AlertTriangle, Minus, Plus, Trash2,
 } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 import { getDeviceId, genDeviceEntityId } from '@/lib/device';
@@ -49,6 +49,7 @@ export default function SaleScreen({ onPendingChange }: { onPendingChange: (n: n
       setLoading(false);
       refreshPending();
     })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   async function refreshPending() {
@@ -277,6 +278,27 @@ export default function SaleScreen({ onPendingChange }: { onPendingChange: (n: n
           <div className="flex items-center justify-between mb-2">
             <span className="text-sm text-slate-500">{cart.length} article(s) — <button onClick={() => setCart([])} className="text-red-500 text-xs">Vider</button></span>
             <span className="text-xl font-bold text-slate-800">{fcfa(total)}</span>
+          </div>
+          <div className="max-h-40 overflow-y-auto mb-2 divide-y divide-slate-100">
+            {cart.map((it) => (
+              <div key={it.product_id} className="flex items-center gap-2 py-1.5">
+                <span className="flex-1 text-sm text-slate-700 line-clamp-1">{it.product_name}</span>
+                <button onClick={() => changeQty(it.product_id, -1)} disabled={it.qty <= 1} aria-label="Diminuer"
+                  className="p-1.5 rounded-lg bg-slate-100 text-slate-600 disabled:opacity-40">
+                  <Minus className="w-4 h-4" />
+                </button>
+                <span className="w-6 text-center text-sm font-semibold">{it.qty}</span>
+                <button onClick={() => changeQty(it.product_id, 1)} disabled={it.qty >= it.maxStock} aria-label="Augmenter"
+                  className="p-1.5 rounded-lg bg-slate-100 text-slate-600 disabled:opacity-40">
+                  <Plus className="w-4 h-4" />
+                </button>
+                <span className="w-20 text-right text-sm text-slate-600">{fcfa(it.qty * it.unit_price - it.discount)}</span>
+                <button onClick={() => removeItem(it.product_id)} aria-label="Retirer"
+                  className="p-1.5 rounded-lg text-red-500 hover:bg-red-50">
+                  <Trash2 className="w-4 h-4" />
+                </button>
+              </div>
+            ))}
           </div>
           <button
             onClick={() => setPayOpen(true)}

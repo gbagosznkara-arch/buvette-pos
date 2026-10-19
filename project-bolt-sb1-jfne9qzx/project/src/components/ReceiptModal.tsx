@@ -1,11 +1,10 @@
-import { X, Share2, MessageCircle, Printer, Download } from 'lucide-react';
+import { X, MessageCircle, Printer, Download } from 'lucide-react';
 import type { Sale, MobileOperator } from '@/types/db';
 import { fcfa, formatDateTime } from '@/lib/format';
 
 export default function ReceiptModal({
   sale,
   operator,
-  managerName,
   onClose,
 }: {
   sale: Sale & { sale_items?: { product_name: string; qty: number; unit_price: number; discount: number }[] };
@@ -16,7 +15,7 @@ export default function ReceiptModal({
   const items = sale.sale_items || [];
   const methodLabel = sale.payment_method === 'cash' ? 'Espèces' : sale.payment_method === 'mobile' ? `Mobile Money${operator ? ' - ' + operator.name : ''}` : sale.payment_method === 'mixed' ? 'Paiement mixte' : 'Crédit';
 
-  const receiptText = buildReceiptText(sale, items, methodLabel, managerName);
+  const receiptText = buildReceiptText(sale, items, methodLabel);
 
   function shareWhatsApp() {
     const text = encodeURIComponent(receiptText);
@@ -148,7 +147,6 @@ function buildReceiptText(
   sale: Sale & { sale_items?: { product_name: string; qty: number; unit_price: number; discount: number }[] },
   items: { product_name: string; qty: number; unit_price: number; discount: number }[],
   methodLabel: string,
-  _managerName: string,
 ): string {
   const lines: string[] = [];
   lines.push('=== Buvette Pro ===');

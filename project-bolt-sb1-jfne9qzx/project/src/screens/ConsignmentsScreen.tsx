@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Loader2, PackageOpen, PackageCheck, Download } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 import { getDeviceId, genDeviceEntityId } from '@/lib/device';
-import { putConsignment, listPendingConsignments } from '@/lib/offline-db';
+import { putConsignment } from '@/lib/offline-db';
 import { fcfa, formatDateTime } from '@/lib/format';
 import { useToast } from '@/context/ToastContext';
 import type { Product, Consignment } from '@/types/db';

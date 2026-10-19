@@ -52,7 +52,7 @@ export default function CloseScreen() {
   const totalCash = sales.reduce((s, x) => s + x.cash_amount, 0);
   const totalMobile = sales.reduce((s, x) => s + x.mobile_amount, 0);
   const salesCount = sales.length;
-  const discounts = sales.reduce((s, x) => s + 0, 0); // placeholder for future discount tracking
+  const discounts = 0; // placeholder for future discount tracking
   const refunds = 0;
   const expensesTotal = expenses.reduce((s, e) => s + e.amount, 0);
 

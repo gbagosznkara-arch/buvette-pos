@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
-import { Loader2, UserPlus, UserX, UserCheck, Phone, Shield, KeyRound, Copy, Check } from 'lucide-react';
+import { Loader2, UserPlus, Phone, Shield, KeyRound, Copy, Check } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 import { formatDate } from '@/lib/format';
 import { useToast } from '@/context/ToastContext';
-import { useAuth } from '@/context/AuthContext';
 import type { Profile } from '@/types/db';
 
 interface ManagerCode {
@@ -17,7 +16,6 @@ interface ManagerCode {
 
 export default function ManagersScreen() {
   const { show } = useToast();
-  const { profile: me } = useAuth();
   const [managers, setManagers] = useState<Profile[]>([]);
   const [codes, setCodes] = useState<ManagerCode[]>([]);
   const [loading, setLoading] = useState(true);
@@ -37,14 +35,6 @@ export default function ManagersScreen() {
   }
 
   useEffect(() => { load(); }, []);
-
-  async function toggleActive(p: Profile) {
-    if (p.id === me?.id) { show('err', 'Vous ne pouvez pas vous désactiver'); return; }
-    const { error } = await supabase.from('profiles').update({ active: !p.active }).eq('id', p.id);
-    if (error) { show('err', error.message); return; }
-    show('ok', p.active ? 'Gérante désactivée' : 'Gérante activée');
-    load();
-  }
 
   async function toggleCodeActive(c: ManagerCode) {
     const { error } = await supabase.from('manager_codes').update({ active: !c.active }).eq('id', c.id);

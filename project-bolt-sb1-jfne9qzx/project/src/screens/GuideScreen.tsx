@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { X, BookOpen, ShoppingCart, Boxes, BarChart3, Users, Wallet, Lock, PackageCheck, Smartphone, Wifi, Download, ChevronRight } from 'lucide-react';
+import { X, BookOpen, ShoppingCart, Boxes, BarChart3, Users, Wallet, Lock, PackageCheck, Wifi, Download, ChevronRight } from 'lucide-react';
 
 type Role = 'owner' | 'manager';
 
