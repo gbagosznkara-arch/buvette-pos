@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  background: #f8fafc;
+}
+
+/* Gros boutons tactiles pour la buvette */
+.btn-touch {
+  @apply min-h-[44px] px-4 py-3 rounded-xl font-medium transition active:scale-[0.98];
+}
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Safe areas for notched devices */
+.safe-top { padding-top: env(safe-area-inset-top); }
+.safe-bottom { padding-bottom: env(safe-area-inset-bottom); }
+
+/* Prevent text selection on buttons for native feel */
+button { -webkit-tap-highlight-color: transparent; user-select: none; }
+
+/* Smooth scroll */
+* { -webkit-overflow-scrolling: touch; }

@@ -1,0 +1,8 @@
+[functions.signup]
+verify_jwt = false
+
+[functions.manager-login]
+verify_jwt = false
+
+[functions.create-manager]
+verify_jwt = true
