@@ -1,0 +1,5 @@
+[build]
+  base = "project-bolt-sb1-jfne9qzx/project"
+  publish = "project-bolt-sb1-jfne9qzx/project/dist"
+  command = "npm run build"
+  
